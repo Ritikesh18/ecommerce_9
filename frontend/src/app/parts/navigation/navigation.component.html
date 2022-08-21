@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" [routerLink]="root">
+        <img src="/assets/brand.png" width="80" height="60" class="d-inline-block align-top" alt="">
+        <b><p style="color:red">Real Pepperfry</p></b>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+        <div class="navbar-nav" *ngIf="!currentUser || currentUser.role == Role.Customer">
+
+            <a class="nav-item nav-link "
+               routerLink="/category/0">
+               <h1><p style="color:white">Chairs  |</p></h1> 
+            </a>
+            <a class="nav-item nav-link"
+               routerLink="/category/1">
+               <h1><p style="color:white">Arts  |</p></h1> 
+            </a>
+            <a class="nav-item nav-link "
+               routerLink="/category/2">
+               <h1><p style="color:white">Paintings  |</p></h1> 
+            </a>
+            <a class="nav-item nav-link"
+               routerLink="/category/3">
+               <h1><p style="color:white">Floral</p></h1>
+            </a>
+
+           
+
+        </div>
+
+        
+
+        <div class="navbar-nav ml-auto">
+            <a *ngIf="!currentUser || currentUser.role == Role.Customer"
+                    class="nav-item nav-link " routerLink="/cart">
+                    <p style="color:white"><i class="fas fa-shopping-cart"></i></p>
+                <p style="color:white"><b>Cart</b></p>
+            </a>
+
+            <div class="navbar-nav" *ngIf="currentUser && currentUser.role == Role.Manager">
+
+                <a class="nav-item nav-link"  routerLink="/discount">Discount</a>
+                <a class="nav-item nav-link" (click)=getUsers() routerLink="/admin/user">Users</a>
+                <a class="nav-item nav-link" routerLink="/seller/product">Stocks</a>
+            </div>
+
+            <div class="navbar-nav" *ngIf="currentUser && currentUser.role == Role.Customer">
+                <a class="nav-item nav-link"  routerLink="/wishlist">
+                    <p style="color:white">Wishlist</p></a>
+            </div>
+
+            <ng-container *ngIf="currentUser; else noUser">
+                
+               <!-- <a class="nav-item nav-link"  routerLink="/discount">Discount</a>
+                <a class="nav-item nav-link" (click)=getUsers() routerLink="/admin/user">Users</a>
+                <a class="nav-item nav-link" routerLink="/seller/product">Stocks</a> -->
+                <a class="nav-item nav-link " routerLink="/order">
+                    <p style="color:white"><i class="fas fa-list-ul"></i></p>
+                    <p style="color:white">Orders</p>
+                </a>
+                <a class="nav-item nav-link " routerLink="/profile">
+                    <p style="color:white"><b>{{name}}</b></p>
+                </a>
+                <a class="nav-item nav-link " (click)="logout()" routerLink="/login" [queryParams]="{logout: true}">
+                    <p style="color:white"><b>Sign Out</b></p>
+                </a>
+            </ng-container>
+            <ng-template #noUser>
+                <a class="nav-item nav-link " routerLink="/login">
+                    <b><p style="color:white">Sign In</p></b>
+                </a>
+                <a class="nav-item nav-link " routerLink="/register">
+                    <b><p style="color:white">Sign Up</p></b>
+                </a>
+            </ng-template>
+            
+            </div>
+    </div>
+</nav>
